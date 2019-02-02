@@ -28,7 +28,7 @@ public class driveOmniPowered extends Command {
         //drive.driveOmni();
         drive.talLF.set(TeleSpeed * -stick.getDY());
         drive.talLB.set(TeleSpeed * -stick.getDY() + TurnSpeed * stick.getDZ());
-        drive.talLF.set(TeleSpeed * stick.getDY());
+        drive.talRF.set(TeleSpeed * stick.getDY());
         drive.talRB.set(TeleSpeed * stick.getDY() + TurnSpeed * stick.getDZ());
     }
     @Override
