@@ -22,7 +22,7 @@ public class MeasuredRotate extends Command {
     }
     @Override
     protected void initialize() {
-
+        finished = false;
     }
     @Override
     protected void execute() {
