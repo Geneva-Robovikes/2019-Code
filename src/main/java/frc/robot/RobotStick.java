@@ -1,11 +1,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.*;
 
-import java.math.*;
 
 
 public class RobotStick extends Joystick { // Defines the joystick
@@ -17,11 +15,28 @@ public class RobotStick extends Joystick { // Defines the joystick
 
     public RobotStick(int port) { //The states of all the buttons on the joystick in an array
         super(port);
-        buttonState = new boolean[12];
+
+        JoystickButton  button1 = new JoystickButton(this, 1),
+                        button2 = new JoystickButton(this, 2),
+                        button3 = new JoystickButton(this, 3),
+                        button4 = new JoystickButton(this, 4),
+                        button5 = new JoystickButton(this, 5),
+                        button6 = new JoystickButton(this, 6),
+                        button7 = new JoystickButton(this, 7),
+                        button8 = new JoystickButton(this, 8),
+                        button9 = new JoystickButton(this, 9),
+                        button10 = new JoystickButton(this, 10),
+                        button11 = new JoystickButton(this, 11),
+                        button12 = new JoystickButton(this, 12);
+
+
+
+
+        /*buttonState = new boolean[12];
 
         for(int i=0; i < buttonState.length; i++) {
             buttonState[i] = false;
-        }
+        }*/
 
     }
 
@@ -44,10 +59,10 @@ public class RobotStick extends Joystick { // Defines the joystick
     }
 
     public double getDZ() { // Gets joystick Z input (twist)
-        return deadZone(this.getRawAxis(2), .66);
+        return deadZone(this.getRawAxis(2), .2);
     }
 
-    public boolean getButton(int button) { // Continuous input while button is pressed
+    /*public boolean getButton(int button) { // Continuous input while button is pressed
         return this.getRawButton(button);
     }
 
@@ -66,5 +81,5 @@ public class RobotStick extends Joystick { // Defines the joystick
 
     public double getStickDegree() { // Returns the angle that the joystick is at in degrees
         return Math.toDegrees(Math.asin(getDY()/(Math.pow((Math.pow(getDX(),2)+Math.pow(getDY(),2)),0.5))));
-    }
+    }*/
 }

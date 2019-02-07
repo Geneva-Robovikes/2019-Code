@@ -7,15 +7,14 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.VideoMode;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoSource;
-import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.shuffleboard.*;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.util.CrashTracker;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.Commands.AlwaysOn;
+import frc.robot.Commands.AutonomousCommands;
+import frc.robot.Commands.TeleopCommands;
+import frc.robot.Subsystems.Drive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,7 +25,14 @@ import frc.util.CrashTracker;
  */
 public class Robot extends TimedRobot {
 
-  public static RobotInstance robot;
+  public static Drive drive;
+  public static RobotStick stick;
+  public static DashHelper dash;
+  //public TeleopCommands tele;
+  CommandGroup tele;
+  CommandGroup auto;
+  CommandGroup constant;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -34,11 +40,19 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+
     //CrashTracker.logRobotInit();
     try {
-        robot = new RobotInstance();
-        robot.resetValues();
-        robot.startDash();
+        stick = new RobotStick(5);
+        drive = new Drive();
+        drive.resetGyro();
+
+        dash = new DashHelper();
+        dash.startDash();
+        tele = new TeleopCommands();
+        auto = new AutonomousCommands();
+        constant = new AlwaysOn();
+        constant.start();
     }
     catch (Throwable t){
 //      CrashTracker.logThrowable(t);
@@ -62,7 +76,7 @@ public class Robot extends TimedRobot {
    * This autonomous (along with the chooser code above) shows how to select
    * between different autonomous modes using the dashboard. The sendable
    * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
+   * LabVIEW DashHelper, remove all of the chooser code and uncomment the
    * getString line to get the auto name from the text box below the Gyro
    *
    * <p>You can add additional auto modes by adding additional comparisons to
@@ -71,6 +85,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    auto.start();
   }
 
   /**
@@ -78,16 +93,23 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-
+    Scheduler.getInstance().run();
   }
 
-  /**
+  @Override
+  public void teleopInit() {
+
+    tele.start();
+  }
+
+    /**
    * This function is called periodically during operator control.
    */
   @Override
   public void teleopPeriodic() {
-      //startDash();
-      robot.update();
+    //drive.updateGyroAngle();
+    Scheduler.getInstance().run();
+    //drive.driveOmni();
   }
 
   /**
