@@ -19,9 +19,9 @@ public class UpdateDashValues extends CommandGroup {
     @Override
     protected void execute() {
         drive.updateGyroAngle();
-        System.out.println("Gyro angle Updated");
+        //System.out.println("Gyro angle Updated");
         dash.sbGyroAngle.setDouble(Double.parseDouble(dash.df.format(drive.getGyroAngle())));
-        System.out.println(drive.gyroAngle);
+        //System.out.println(drive.gyroAngle);
         //dash.sbTeleSpeed.getDouble(Constants.kDefaultTeleSpeed);
         //dash.sbTurnSpeed.getDouble(Constants.kDefaultTurnSpeed);
     }
