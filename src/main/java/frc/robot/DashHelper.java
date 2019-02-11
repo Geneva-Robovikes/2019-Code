@@ -5,6 +5,10 @@ import edu.wpi.cscore.VideoMode;
 import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTablesJNI;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
@@ -32,6 +36,10 @@ public class DashHelper {
         sbTeleSpeed = mainTab.add("TeleSpeed", kDefaultTeleSpeed).getEntry();
         sbTurnSpeed = mainTab.add("TurnSpeed", kDefaultTurnSpeed).getEntry();
         Shuffleboard.selectTab("Main");
-
+        mainTab.add("FMSInfo",NetworkTablesJNI.getDefaultInstance());
+        Shuffleboard.startRecording();
+    }
+    public void addGyro(ADXRS450_Gyro gyro){
+        mainTab.add("Raw Gyro",gyro);
     }
 }

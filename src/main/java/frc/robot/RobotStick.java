@@ -3,7 +3,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.Commands.drive.emergencyBrake;
+import frc.robot.Commands.misc.ResetRobotSpeed;
 
 
 public class RobotStick extends Joystick { // Defines the joystick
@@ -28,6 +29,8 @@ public class RobotStick extends Joystick { // Defines the joystick
                         button10 = new JoystickButton(this, 10),
                         button11 = new JoystickButton(this, 11),
                         button12 = new JoystickButton(this, 12);
+            button6.whenPressed(new emergencyBrake());
+            button5.whenPressed(new ResetRobotSpeed());
 
 
 

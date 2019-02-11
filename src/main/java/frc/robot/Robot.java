@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -26,10 +27,10 @@ import frc.robot.Subsystems.Lights;
  * project.
  */
 public class Robot extends TimedRobot {
-
+  public static PowerDistributionPanel pdp;
   public static Drive drive;
-  public static RobotStick stick;
   public static DashHelper dash;
+  public static RobotStick stick;
   static int test;
   //public static Lights lights;
   //public TeleopCommands tele;
@@ -49,19 +50,20 @@ public class Robot extends TimedRobot {
 
     //CrashTracker.logRobotInit();
     try {
-      limit = new DigitalInput(10);
-      stick = new RobotStick(5);
-        drive = new Drive();
+      drive = new Drive();
         //lights = new Lights();
-        drive.resetGyro();
-        test = 0;
+      drive.resetGyro();
+      stick = new RobotStick(5);
+      test = 0;
+      dash = new DashHelper();
+      dash.startDash();
+      dash.addGyro(drive.gyro);
+      tele = new TeleopCommands();
+      auto = new AutonomousCommands();
+      constant = new AlwaysOn();
+      constant.start();
+      limit = new DigitalInput(10);
 
-        dash = new DashHelper();
-        dash.startDash();
-        tele = new TeleopCommands();
-        auto = new AutonomousCommands();
-        constant = new AlwaysOn();
-        constant.start();
     }
     catch (Throwable t){
 //      CrashTracker.logThrowable(t);
