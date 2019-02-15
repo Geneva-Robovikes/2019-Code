@@ -36,7 +36,6 @@ public class DashHelper {
         sbTeleSpeed = mainTab.add("TeleSpeed", kDefaultTeleSpeed).getEntry();
         sbTurnSpeed = mainTab.add("TurnSpeed", kDefaultTurnSpeed).getEntry();
         Shuffleboard.selectTab("Main");
-        mainTab.add("FMSInfo",NetworkTablesJNI.getDefaultInstance());
         Shuffleboard.startRecording();
     }
     public void addGyro(ADXRS450_Gyro gyro){

@@ -1,6 +1,7 @@
 package frc.robot;
 
 public class Constants {
+    //PWM
     public static final int kTALON_PORT_LF = 0;
     public static final int kTALON_PORT_LB = 1;
     public static final int kTALON_PORT_RF = 2;
@@ -9,6 +10,10 @@ public class Constants {
     public static final int kTALON_PORT_LIFT2 = 5;
     public static final int kTALON_PORT_PIVOT = 6;
     public static final int kTALON_PORT_GRABBER = 7;
+    public static final int kPWM_PORT_LIGHT_R = 8;
+    //DIO
+
+
     public static double kDefaultTeleSpeed = .75;
     public static double kDefaultTurnSpeed = .4;
 }

@@ -27,12 +27,11 @@ import frc.robot.Subsystems.Lights;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static PowerDistributionPanel pdp;
   public static Drive drive;
   public static DashHelper dash;
   public static RobotStick stick;
+  public static Lights lights;
   static int test;
-  //public static Lights lights;
   //public TeleopCommands tele;
   CommandGroup tele;
   CommandGroup auto;
@@ -50,20 +49,22 @@ public class Robot extends TimedRobot {
 
     //CrashTracker.logRobotInit();
     try {
+      lights = new Lights();
+      lights.red_light.setRaw(0);
       drive = new Drive();
-        //lights = new Lights();
       drive.resetGyro();
       stick = new RobotStick(5);
       test = 0;
       dash = new DashHelper();
       dash.startDash();
       dash.addGyro(drive.gyro);
+
       tele = new TeleopCommands();
       auto = new AutonomousCommands();
       constant = new AlwaysOn();
       constant.start();
-      limit = new DigitalInput(10);
-
+      //limit = new DigitalInput(10);
+      Scheduler.getInstance().run();
     }
     catch (Throwable t){
 //      CrashTracker.logThrowable(t);
@@ -109,6 +110,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    lights.red_light.setRaw(0);
     tele.start();
   }
 
@@ -118,10 +120,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //drive.updateGyroAngle();
-
-    if(limit.get()){
+    /*if(limit.get()){
       test += 1;
-      System.out.println("Limit Clicked" + test);}
+      System.out.println("Limit Clicked" + test);}*/
     Scheduler.getInstance().run();
     //drive.driveOmni();
   }
