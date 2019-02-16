@@ -3,8 +3,7 @@ package frc.robot.Commands.misc;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Constants;
 
-import static frc.robot.Robot.dash;
-import static frc.robot.Robot.drive;
+import static frc.robot.Robot.*;
 
 public class UpdateDashValues extends CommandGroup {
     public UpdateDashValues(){
@@ -19,9 +18,10 @@ public class UpdateDashValues extends CommandGroup {
     @Override
     protected void execute() {
         drive.updateGyroAngle();
-        System.out.println("Gyro angle Updated");
+        //System.out.println("Gyro angle Updated");
         dash.sbGyroAngle.setDouble(Double.parseDouble(dash.df.format(drive.getGyroAngle())));
-        System.out.println(drive.gyroAngle);
+        dash.sbRedLight.setDouble(lights.red_light.getRaw());
+        //System.out.println(drive.gyroAngle);
         //dash.sbTeleSpeed.getDouble(Constants.kDefaultTeleSpeed);
         //dash.sbTurnSpeed.getDouble(Constants.kDefaultTurnSpeed);
     }

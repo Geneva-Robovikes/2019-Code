@@ -3,7 +3,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.Commands.Lift.liftDown;
+import frc.robot.Commands.Lift.liftUp;
+import frc.robot.Commands.drive.emergencyBrake;
+import frc.robot.Commands.misc.ResetRobotSpeed;
 
 
 public class RobotStick extends Joystick { // Defines the joystick
@@ -28,6 +31,11 @@ public class RobotStick extends Joystick { // Defines the joystick
                         button10 = new JoystickButton(this, 10),
                         button11 = new JoystickButton(this, 11),
                         button12 = new JoystickButton(this, 12);
+            button3.whileHeld(new liftDown());
+            button5.whileHeld(new liftUp());
+
+            //button6.whenPressed(new emergencyBrake());
+            //button4.whenPressed(new ResetRobotSpeed());
 
 
 
@@ -62,14 +70,13 @@ public class RobotStick extends Joystick { // Defines the joystick
         return deadZone(this.getRawAxis(2), .2);
     }
 
-    /*public boolean getButton(int button) { // Continuous input while button is pressed
-        return this.getRawButton(button);
-    }
-
     public int getNub() { // Input for POV stick
         return this.getPOV();
     }
 
+    /*public boolean getButton(int button) { // Continuous input while button is pressed
+        return this.getRawButton(button);
+    }
     public boolean getButtonToggle(int button) { // Toggle input on press
         buttonState[button] = !buttonState[button];
         return buttonState[button];

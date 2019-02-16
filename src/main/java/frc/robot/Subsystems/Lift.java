@@ -1,16 +1,22 @@
 package frc.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 
 public class Lift extends Subsystem {
-    public Talon liftTalon, pivotTalon1, pivotTalon2;
+    public Talon liftTalonStage1, liftTalonStage2;
+    public Solenoid liftPivotSol;
+
 
     public Lift(){
-        liftTalon = new Talon(Constants.kTALON_PORT_LIFT);
-        pivotTalon1 = new Talon(Constants.kTALON_PORT_PIVOT1);
-        pivotTalon2 = new Talon(Constants.kTALON_PORT_PIVOT2);
+        liftTalonStage1 = new Talon(Constants.kTALON_PORT_LIFT1);
+        liftTalonStage2= new Talon(Constants.kTALON_PORT_LIFT2);
+        liftPivotSol = new Solenoid(Constants.kSOL_PORT_LIFT);
+        /*
+        LIMIT SWITCHES?
+         */
     }
     public void initDefaultCommand(){
 

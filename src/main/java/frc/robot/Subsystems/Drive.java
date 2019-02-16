@@ -71,4 +71,10 @@ public class Drive extends Subsystem {
         public void resetGyro() { // Clears gyro angle
             gyroAngle = 0;
         }
+        public void setDriveTalons(double lf, double lb, double rf, double rb){
+            talLF.set(lf);
+            talLB.set(lb);
+            talRF.set(rf);
+            talRB.set(rb);
+        }
     }

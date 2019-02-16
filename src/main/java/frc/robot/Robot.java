@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -14,7 +15,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.Commands.AlwaysOn;
 import frc.robot.Commands.AutonomousCommands;
 import frc.robot.Commands.TeleopCommands;
-import frc.robot.Subsystems.Drive;
+import frc.robot.Subsystems.*;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,14 +26,17 @@ import frc.robot.Subsystems.Drive;
  * project.
  */
 public class Robot extends TimedRobot {
-
   public static Drive drive;
-  public static RobotStick stick;
   public static DashHelper dash;
-  //public TeleopCommands tele;
+  public static RobotStick stick;
+  public static Lights lights;
+  public static Grabber grabber;
+  public static Lift lift;
+  static int test;
   CommandGroup tele;
   CommandGroup auto;
   CommandGroup constant;
+
 
   /**
    * This function is run when the robot is first started up and should be
@@ -43,16 +48,22 @@ public class Robot extends TimedRobot {
 
     //CrashTracker.logRobotInit();
     try {
-        stick = new RobotStick(5);
-        drive = new Drive();
-        drive.resetGyro();
-
-        dash = new DashHelper();
-        dash.startDash();
-        tele = new TeleopCommands();
-        auto = new AutonomousCommands();
-        constant = new AlwaysOn();
-        constant.start();
+      lights = new Lights();
+      lights.red_light.setRaw(0);
+      //grabber = new Grabber();
+      //lift = new Lift();
+      drive = new Drive();
+      drive.resetGyro();
+      stick = new RobotStick(5);
+      test = 0;
+      dash = new DashHelper();
+      dash.startDash();
+      dash.addGyro(drive.gyro);
+      tele = new TeleopCommands();
+      auto = new AutonomousCommands();
+      constant = new AlwaysOn();
+      constant.start();
+      Scheduler.getInstance().run();
     }
     catch (Throwable t){
 //      CrashTracker.logThrowable(t);
@@ -85,6 +96,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    tele.cancel();
     auto.start();
   }
 
@@ -98,7 +110,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-
+    auto.cancel();
+    lights.red_light.setRaw(0);
     tele.start();
   }
 
@@ -107,9 +120,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    //drive.updateGyroAngle();
+
     Scheduler.getInstance().run();
-    //drive.driveOmni();
   }
 
   /**
